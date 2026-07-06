@@ -56,7 +56,12 @@ pnpm --filter cli dev            # CLI
 pnpm --filter discord-bot dev    # Discord bot (requires DISCORD_TOKEN, see its README)
 ```
 
-
+Each app has its own README with configuration and usage details:
+ 
+- [API](./apps/api/README.md)
+- [CLI](./apps/cli/README.md)
+- [Discord bot](./apps/discord-bot/README.md)
+- [@mactrack/utils](./packages/utils/README.md)
 
 ## Development notes
 
