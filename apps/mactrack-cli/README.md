@@ -1,13 +1,14 @@
-# mactrack API
+# mactrack CLI
 
-Fastify REST API for mactrack. Exposes food entries and macro summaries over HTTP so any client (CLI, Discord bot, future web app) can log and query nutrition data through one interface.
+Command-line client for mactrack: log food and check macro totals without leaving the terminal.
 
 Part of the [mactrack monorepo](../../README.md).
 
 ## Stack
 
 - Node.js + TypeScript
-- [Fastify](https://fastify.dev/) for routing and validation
+- [Stricli](https://bloomberg.github.io/stricli/) for command routing and argument parsing
+- [tsup](https://tsup.egoist.dev/) for bundling
 - `@mactrack/utils` for shared types and macro calculations
 
 ## Running locally
@@ -17,36 +18,33 @@ From the repo root:
 ```bash
 pnpm install
 pnpm --filter @mactrack/utils build
-pnpm --filter api dev
+pnpm --filter cli dev
 ```
 
-The server starts on `http://localhost:3000` by default.
+Or build and run the bundled binary:
 
-### Configuration
+```bash
+pnpm --filter cli build
+node apps/cli/dist/index.js --help   # TODO: confirm output path / bin name
+```
 
-| Variable | Default | Description |
-| --- | --- | --- |
-| `PORT` | `3000` | Port the server listens on |
-| `HOST` | `0.0.0.0` | Bind address |
+## Usage
 
-<!-- TODO: replace with the actual env vars the API reads, or delete the table if there are none yet -->
+```bash
+mactrack --help
+```
 
-## Endpoints
-
-<!-- TODO: replace with real routes. Example shape: -->
-
-| Method | Path | Description |
-| --- | --- | --- |
-| `GET` | `/health` | Liveness check |
-| `POST` | `/macro` | Log a food entry |
-| `GET` | `/entries` | List entries (filter by date) |
-| `GET` | `report` | Macro totals for a day |
+```bash
+mactrack macro "chicken breast" --protein 31 --carbs 0 --fat 3.6 --grams 100
+mactrack report today            # macro totals for today
+```
 
 
 ## Scripts
 
 ```bash
-pnpm --filter api dev     # run with live reload
-pnpm --filter api build   # compile
-pnpm --filter api start   # run compiled output
+pnpm --filter cli dev     # run from source
+pnpm --filter cli build   # bundle with tsup
 ```
+
+<!-- TODO: confirm these scripts exist in apps/cli/package.json -->
