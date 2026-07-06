@@ -1,23 +1,52 @@
-# Getting Started with [Fastify-CLI](https://www.npmjs.com/package/fastify-cli)
-This project was bootstrapped with Fastify-CLI.
+# mactrack API
 
-## Available Scripts
+Fastify REST API for mactrack. Exposes food entries and macro summaries over HTTP so any client (CLI, Discord bot, future web app) can log and query nutrition data through one interface.
 
-In the project directory, you can run:
+Part of the [mactrack monorepo](../../README.md).
 
-### `npm run dev`
+## Stack
 
-To start the app in dev mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Node.js + TypeScript
+- [Fastify](https://fastify.dev/) for routing and validation
+- `@mactrack/utils` for shared types and macro calculations
 
-### `npm start`
+## Running locally
 
-For production mode
+From the repo root:
 
-### `npm run test`
+```bash
+pnpm install
+pnpm --filter @mactrack/utils build
+pnpm --filter api dev
+```
 
-Run the test cases.
+The server starts on `http://localhost:3000` by default.
 
-## Learn More
+### Configuration
 
-To learn Fastify, check out the [Fastify documentation](https://fastify.dev/docs/latest/).
+| Variable | Default | Description |
+| --- | --- | --- |
+| `PORT` | `3000` | Port the server listens on |
+| `HOST` | `0.0.0.0` | Bind address |
+
+<!-- TODO: replace with the actual env vars the API reads, or delete the table if there are none yet -->
+
+## Endpoints
+
+<!-- TODO: replace with real routes. Example shape: -->
+
+| Method | Path | Description |
+| --- | --- | --- |
+| `GET` | `/health` | Liveness check |
+| `POST` | `/macro` | Log a food entry |
+| `GET` | `/entries` | List entries (filter by date) |
+| `GET` | `report` | Macro totals for a day |
+
+
+## Scripts
+
+```bash
+pnpm --filter api dev     # run with live reload
+pnpm --filter api build   # compile
+pnpm --filter api start   # run compiled output
+```
